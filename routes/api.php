@@ -8,4 +8,5 @@ use Illuminate\Support\Facades\Route;
 Route::post('/income-type-create', [IncomeDetailsController::class, 'IncomeTypeCreate']);
 Route::post('/expense-type-create', [expenseDeatailsController::class, 'ExpenseTypeCreate']);
 Route::post('/income-transaction-create', [IncomeDetailsController::class, 'IncomeTransactionCreate']);
+Route::post('/expense-transaction-create', [expenseDeatailsController::class, 'ExpenseTransactionCreate']);
 
