@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('expense_type')->nullable();
             $table->integer('income_type_id')->nullable();
             $table->integer('expense_type_id')->nullable();
+            $table->integer('transaction_amount');
             $table->string('special_note')->nullable();
             $table->timestamps();
         });
