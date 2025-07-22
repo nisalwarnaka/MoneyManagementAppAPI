@@ -5,6 +5,7 @@ namespace App\Http\Controllers\income;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IncomeTransactionCreateRequest;
 use App\Http\Requests\IncomeTypeCreateRequest;
+use App\Http\Requests\IncomeTypeEditRequest;
 use App\Models\IncomeExpenseTransaction;
 use App\Models\IncomeType;
 
@@ -55,6 +56,57 @@ class incomeDetailsController extends Controller
        {
            return "Income Transaction limitation error";
        }
+
+   }
+
+   public function IncomeTypeEdit(IncomeTypeEditRequest $request):string
+   {
+
+       $AllDataIncomeTypeEdit = $request->validated();
+
+       if (IncomeType::where('income_type' , $AllDataIncomeTypeEdit['IncomeTypeForEdit'])->exists()) {
+
+           $SelectIncomeType = IncomeType::where('income_type' , $AllDataIncomeTypeEdit['IncomeTypeForEdit']);
+
+           $SelectedIncomeTypeId = $SelectIncomeType->get()[0]->id;
+
+           if ($SelectedIncomeTypeId == $AllDataIncomeTypeEdit['IncomeTypeIdForEdit']) {
+
+               IncomeType::where('id', $SelectedIncomeTypeId)->update([
+
+                   'income_type' => $AllDataIncomeTypeEdit['IncomeTypeForEdit'],
+                   'max_amount' => $AllDataIncomeTypeEdit['IncomeMaxAmountForEdit'],
+                   'min_amount' => $AllDataIncomeTypeEdit['IncomeMinAmountForEdit']
+
+               ]);
+
+               return "Income Type Updated Successfully";
+           }
+           else{
+               return "this Income Type Already Exist";
+           }
+
+       }
+       else{
+
+           if (IncomeType::where('id' , $AllDataIncomeTypeEdit['IncomeTypeIdForEdit'])->exists()){
+
+           IncomeType::where('id', $AllDataIncomeTypeEdit['IncomeTypeIdForEdit'])->update([
+
+               'income_type' => $AllDataIncomeTypeEdit['IncomeTypeForEdit'],
+               'max_amount' => $AllDataIncomeTypeEdit['IncomeMaxAmountForEdit'],
+               'min_amount' => $AllDataIncomeTypeEdit['IncomeMinAmountForEdit']
+
+           ]);
+               return "Income Type Updated Successfully";
+
+           }
+           else{
+               return "error ! something went wrong, please try again later";
+           }
+
+       }
+
 
    }
 }
