@@ -11,3 +11,4 @@ Route::post('/income-transaction-create', [IncomeDetailsController::class, 'Inco
 Route::post('/expense-transaction-create', [expenseDeatailsController::class, 'ExpenseTransactionCreate']);
 Route::post('/expense-type-edit', [expenseDeatailsController::class, 'ExpenseTypeEdit']);
 Route::post('/income-type-edit', [IncomeDetailsController::class, 'IncomeTypeEdit']);
+Route::post('/income-transaction-edit', [IncomeDetailsController::class, 'IncomeTransactionEdit']);

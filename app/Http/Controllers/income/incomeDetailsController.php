@@ -4,6 +4,7 @@ namespace App\Http\Controllers\income;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IncomeTransactionCreateRequest;
+use App\Http\Requests\IncomeTransactionEditRequest;
 use App\Http\Requests\IncomeTypeCreateRequest;
 use App\Http\Requests\IncomeTypeEditRequest;
 use App\Models\IncomeExpenseTransaction;
@@ -111,8 +112,30 @@ class incomeDetailsController extends Controller
 
    }
 
-   public function IncomeTransactionEdit()
+   public function IncomeTransactionEdit(IncomeTransactionEditRequest $request):string
    {
+       $AllDataIncomeTransactionEdit = $request->validated();
+
+       $SelectedIncomeType = IncomeType::where('id', $AllDataIncomeTransactionEdit['IncomeTransactionTypeIdForEdit']);
+       $selectedIncomeTypeMaxAmount = $SelectedIncomeType->get()[0]->max_amount;
+       $SelectedIncomeTypeMinAmount = $SelectedIncomeType->get()[0]->min_amount;
+
+       if($selectedIncomeTypeMaxAmount >=  $AllDataIncomeTransactionEdit['IncomeTransactionAmountForEdit'] &  $SelectedIncomeTypeMinAmount <= $AllDataIncomeTransactionEdit['IncomeTransactionAmountForEdit'])
+       {
+
+           IncomeExpenseTransaction::where('id', $AllDataIncomeTransactionEdit['IncomeTransactionIdForEdit'])->update([
+
+               'transaction_amount' => $AllDataIncomeTransactionEdit['IncomeTransactionAmountForEdit'],
+               'special_note' => $AllDataIncomeTransactionEdit['IncomeTransactionSpecial_noteForEdit'],
+               'month' => $AllDataIncomeTransactionEdit['IncomeTransactionMonthForEdit'],
+           ]);
+           return "Income Transaction Updated Successfully";
+       }
+       else{
+           return "Income Transaction limitation error";
+       }
+
+
 
    }
 }
