@@ -4,6 +4,7 @@ namespace App\Http\Controllers\expense;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExpenseTransactionCreateRequest;
+use App\Http\Requests\ExpenseTransactionEditRequest;
 use App\Http\Requests\ExpenseTypeCreateRequest;
 use App\Http\Requests\ExpenseTypeEditRequest;
 use App\Models\ExpenseType;
@@ -107,6 +108,31 @@ class expenseDeatailsController extends Controller
 
                 return "error ! something went wrong, please try again later";
             }
+        }
+
+    }
+
+    public function ExpenseTransactionEdit(ExpenseTransactionEditRequest $request):string
+    {
+        $AllDataExpenseTransactionEdit = $request->validated();
+
+        $SelectedExpenseType = ExpenseType::where('id', $AllDataExpenseTransactionEdit['ExpenseTransactionTypeIdForEdit']);
+        $selectedExpenseTypeMaxAmount = $SelectedExpenseType->get()[0]->max_amount;
+        $SelectedExpenseTypeMinAmount = $SelectedExpenseType->get()[0]->min_amount;
+
+        if($selectedExpenseTypeMaxAmount >=  $AllDataExpenseTransactionEdit['ExpenseTransactionAmountForEdit'] &  $SelectedExpenseTypeMinAmount <= $AllDataExpenseTransactionEdit['ExpenseTransactionAmountForEdit'])
+        {
+
+            IncomeExpenseTransaction::where('id', $AllDataExpenseTransactionEdit['ExpenseTransactionIdForEdit'])->update([
+
+                'transaction_amount' => $AllDataExpenseTransactionEdit['ExpenseTransactionAmountForEdit'],
+                'special_note' => $AllDataExpenseTransactionEdit['ExpenseTransactionSpecial_noteForEdit'],
+                'month' => $AllDataExpenseTransactionEdit['ExpenseTransactionMonthForEdit']
+            ]);
+            return "Income Transaction Updated Successfully";
+        }
+        else{
+            return "Income Transaction limitation error";
         }
 
 
