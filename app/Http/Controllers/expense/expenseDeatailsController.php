@@ -51,6 +51,7 @@ class expenseDeatailsController extends Controller
                 'expense_type_id' => $AllDataExpenseTransactionCreate['ExpenseTypeId'],
                 'transaction_amount' => $AllDataExpenseTransactionCreate['ExpenseTransactionAmount'],
                 'special_note' => $AllDataExpenseTransactionCreate['ExpenseSpecialNote'],
+                'month' => $AllDataExpenseTransactionCreate['ExpenseTransactionMonth']
 
             ]);
             return "Expense Transaction Created Successfully";

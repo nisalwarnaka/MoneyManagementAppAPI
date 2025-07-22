@@ -48,6 +48,7 @@ class incomeDetailsController extends Controller
                'income_type_id' => $AllDataIncomeTransactionCreate['IncomeTypeId'],
                'transaction_amount' => $AllDataIncomeTransactionCreate['IncomeTransactionAmount'],
                'special_note' => $AllDataIncomeTransactionCreate['IncomeSpecialNote'],
+               'month' => $AllDataIncomeTransactionCreate['IncomeTransactionMonth'],
 
            ]);
            return "Income Transaction Created Successfully";
@@ -107,6 +108,11 @@ class incomeDetailsController extends Controller
 
        }
 
+
+   }
+
+   public function IncomeTransactionEdit()
+   {
 
    }
 }

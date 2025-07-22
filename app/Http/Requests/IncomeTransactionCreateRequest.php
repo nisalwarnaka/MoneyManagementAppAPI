@@ -26,6 +26,7 @@ class IncomeTransactionCreateRequest extends FormRequest
             'IncomeTypeId' => ['required','numeric'],
             'IncomeTransactionAmount' => ['required','numeric'],
             'IncomeSpecialNote' =>['nullable','string','max:255'],
+            'IncomeTransactionMonth' =>['required','string','max:255'],
 
         ];
     }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('expense_type_id')->nullable();
             $table->integer('transaction_amount');
             $table->string('special_note')->nullable();
+            $table->string('month');
             $table->timestamps();
         });
     }

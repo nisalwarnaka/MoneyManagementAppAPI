@@ -26,6 +26,7 @@ class ExpenseTransactionCreateRequest extends FormRequest
             'ExpenseTypeId' => ['required','numeric'],
             'ExpenseTransactionAmount' => ['required','numeric'],
             'ExpenseSpecialNote' =>['nullable','string','max:255'],
+            'ExpenseTransactionMonth' =>['required','string','max:255'],
         ];
     }
 }
