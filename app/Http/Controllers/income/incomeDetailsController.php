@@ -9,6 +9,7 @@ use App\Http\Requests\IncomeTypeCreateRequest;
 use App\Http\Requests\IncomeTypeEditRequest;
 use App\Models\IncomeExpenseTransaction;
 use App\Models\IncomeType;
+use Illuminate\Http\Request;
 
 class incomeDetailsController extends Controller
 {
@@ -137,5 +138,21 @@ class incomeDetailsController extends Controller
 
 
 
+   }
+
+   public function IncomeTypeDelete(Request $request): string
+   {
+       $IncomeTypeIdForDelete = $request['IncomeTypeIdForDelete'];
+       IncomeType::destroy($IncomeTypeIdForDelete);
+
+       return "Income Type Deleted Successfully";
+   }
+
+   public function IncomeAndExpenseTransactionDelete(Request $request): string
+   {
+       $IncomeOrExpenseTransactionIdForDelete = $request['IncomeOrExpenseTransactionIdForDelete'];
+       IncomeExpenseTransaction::destroy($IncomeOrExpenseTransactionIdForDelete);
+
+       return "Transaction Deleted Successfully";
    }
 }

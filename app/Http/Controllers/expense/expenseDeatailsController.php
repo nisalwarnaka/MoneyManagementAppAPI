@@ -134,8 +134,13 @@ class expenseDeatailsController extends Controller
         else{
             return "Income Transaction limitation error";
         }
+    }
 
+    public function ExpenseTypeDelete(Request $request): string
+    {
+        $ExpenseTypeIdForDelete = $request['ExpenseTypeIdForDelete'];
+        ExpenseType::destroy($ExpenseTypeIdForDelete);
 
-
+        return "Expense Type Deleted Successfully";
     }
 }
