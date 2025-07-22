@@ -9,4 +9,5 @@ Route::post('/income-type-create', [IncomeDetailsController::class, 'IncomeTypeC
 Route::post('/expense-type-create', [expenseDeatailsController::class, 'ExpenseTypeCreate']);
 Route::post('/income-transaction-create', [IncomeDetailsController::class, 'IncomeTransactionCreate']);
 Route::post('/expense-transaction-create', [expenseDeatailsController::class, 'ExpenseTransactionCreate']);
+Route::post('/expense-type-edit', [expenseDeatailsController::class, 'ExpenseTypeEdit']);
 

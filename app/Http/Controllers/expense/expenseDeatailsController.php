@@ -5,6 +5,7 @@ namespace App\Http\Controllers\expense;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExpenseTransactionCreateRequest;
 use App\Http\Requests\ExpenseTypeCreateRequest;
+use App\Http\Requests\ExpenseTypeEditRequest;
 use App\Models\ExpenseType;
 use App\Models\IncomeExpenseTransaction;
 use Illuminate\Http\Request;
@@ -58,5 +59,56 @@ class expenseDeatailsController extends Controller
         {
             return "Expense Transaction Limitation Error";
         }
+    }
+
+    public function ExpenseTypeEdit(ExpenseTypeEditRequest $request):string
+    {
+        $AllDataExpenseTypeEdit = $request->validated();
+
+        if (ExpenseType::where('expense_type' , $AllDataExpenseTypeEdit['ExpenseTypeForEdit'])->exists()) {
+
+            $SelectExpenseType = ExpenseType::where('expense_type' , $AllDataExpenseTypeEdit['ExpenseTypeForEdit']);
+
+            $SelectedExpenseTypeId = $SelectExpenseType->get()[0]->id;
+
+            if ($SelectedExpenseTypeId == $AllDataExpenseTypeEdit['ExpenseTypeIdForEdit']) {
+
+                ExpenseType::where('id', $SelectedExpenseTypeId)->update([
+
+                    'expense_type' => $AllDataExpenseTypeEdit['ExpenseTypeForEdit'],
+                    'max_amount' => $AllDataExpenseTypeEdit['ExpenseMaxAmountForEdit'],
+                    'min_amount' => $AllDataExpenseTypeEdit['ExpenseMinAmountForEdit']
+
+                ]);
+                return "Expense Type Updated Successfully";
+            }
+            else{
+
+                return "This Expense Type Already Exist";
+            }
+
+        }
+        else{
+
+            if (ExpenseType::where('id' , $AllDataExpenseTypeEdit['ExpenseTypeIdForEdit'])->exists()){
+
+            ExpenseType::where('id', $AllDataExpenseTypeEdit['ExpenseTypeIdForEdit'])->update([
+
+                'expense_type' => $AllDataExpenseTypeEdit['ExpenseTypeForEdit'],
+                'max_amount' => $AllDataExpenseTypeEdit['ExpenseMaxAmountForEdit'],
+                'min_amount' => $AllDataExpenseTypeEdit['ExpenseMinAmountForEdit']
+
+            ]);
+            return "Expense Type Updated Successfully";
+
+            }
+            else{
+
+                return "error ! something went wrong, please try again later";
+            }
+        }
+
+
+
     }
 }
