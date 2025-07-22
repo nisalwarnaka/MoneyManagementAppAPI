@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IncomeTransactionCreateRequest extends FormRequest
+class IncomeTransactionEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,12 @@ class IncomeTransactionCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'IncomeTransactionType' => ['required','string','max:255'],
-            'IncomeTypeId' => ['required','numeric'],
-            'IncomeTransactionAmount' => ['required','numeric'],
-            'IncomeSpecialNote' =>['nullable','string','max:255'],
-            'IncomeTransactionMonth' =>['required','string','max:255'],
-
+            'IncomeTransactionTypeForEdit' => ['required'],
+            'IncomeTransactionTypeIdForEdit' => ['required'],
+            'IncomeTransactionIdForEdit' => ['required'],
+            'IncomeTransactionAmountForEdit' => ['required'],
+            'IncomeTransactionSpecial_noteForEdit' => ['nullable'],
+            'IncomeTransactionMonthForEdit' => ['required'],
         ];
     }
 }

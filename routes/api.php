@@ -9,4 +9,10 @@ Route::post('/income-type-create', [IncomeDetailsController::class, 'IncomeTypeC
 Route::post('/expense-type-create', [expenseDeatailsController::class, 'ExpenseTypeCreate']);
 Route::post('/income-transaction-create', [IncomeDetailsController::class, 'IncomeTransactionCreate']);
 Route::post('/expense-transaction-create', [expenseDeatailsController::class, 'ExpenseTransactionCreate']);
-
+Route::post('/expense-type-edit', [expenseDeatailsController::class, 'ExpenseTypeEdit']);
+Route::post('/income-type-edit', [IncomeDetailsController::class, 'IncomeTypeEdit']);
+Route::post('/income-transaction-edit', [IncomeDetailsController::class, 'IncomeTransactionEdit']);
+Route::post('/expense-transaction-edit', [expenseDeatailsController::class, 'ExpenseTransactionEdit']);
+Route::post('/income-type-delete', [IncomeDetailsController::class, 'IncomeTypeDelete']);
+Route::post('/income-and-expense-transaction-delete', [IncomeDetailsController::class, 'IncomeAndExpenseTransactionDelete']);
+Route::post('/expense-type-delete', [expenseDeatailsController::class, 'ExpenseTypeDelete']);

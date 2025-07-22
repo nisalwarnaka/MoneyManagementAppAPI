@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create(array $array)
+ * @method where(string $string, mixed $AllDataIncomeTransactionEdit)
  */
 class IncomeExpenseTransaction extends Model
 {
@@ -16,6 +17,7 @@ class IncomeExpenseTransaction extends Model
         'income_type_id',
         'expense_type_id',
         'transaction_amount',
-        'special_note'
+        'special_note',
+        'month'
     ];
 }
