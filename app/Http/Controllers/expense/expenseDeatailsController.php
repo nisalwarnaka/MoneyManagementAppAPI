@@ -9,6 +9,7 @@ use App\Http\Requests\ExpenseTypeCreateRequest;
 use App\Http\Requests\ExpenseTypeEditRequest;
 use App\Models\ExpenseType;
 use App\Models\IncomeExpenseTransaction;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class expenseDeatailsController extends Controller
@@ -142,5 +143,9 @@ class expenseDeatailsController extends Controller
         ExpenseType::destroy($ExpenseTypeIdForDelete);
 
         return "Expense Type Deleted Successfully";
+    }
+
+    public function ExpenseTypesView(): JsonResponse {
+        return response()->json(ExpenseType::all());
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Requests\IncomeTypeCreateRequest;
 use App\Http\Requests\IncomeTypeEditRequest;
 use App\Models\IncomeExpenseTransaction;
 use App\Models\IncomeType;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class incomeDetailsController extends Controller
@@ -155,4 +156,9 @@ class incomeDetailsController extends Controller
 
        return "Transaction Deleted Successfully";
    }
+
+
+    public function IncomeTypesView(): JsonResponse {
+        return response()->json(IncomeType::all());
+    }
 }
