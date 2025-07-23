@@ -148,4 +148,9 @@ class expenseDeatailsController extends Controller
     public function ExpenseTypesView(): JsonResponse {
         return response()->json(ExpenseType::all());
     }
+
+    public function ExpenseTransactionsView(Request $request): JsonResponse {
+
+        return response()->json(IncomeExpenseTransaction::whereNotNull('expense_type')->get());
+    }
 }

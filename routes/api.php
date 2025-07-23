@@ -19,3 +19,6 @@ Route::post('/expense-type-delete', [expenseDeatailsController::class, 'ExpenseT
 
 Route::get('/income-types-view', [IncomeDetailsController::class, 'IncomeTypesView']);
 Route::get('/expense-types-view', [expenseDeatailsController::class, 'ExpenseTypesView']);
+Route::get('/income-transactions-view', [IncomeDetailsController::class, 'IncomeTransactionsView']);
+Route::get('/expense-transactions-view', [expenseDeatailsController::class, 'ExpenseTransactionsView']);
+Route::post('/income-transactions-view', [IncomeDetailsController::class, 'IncomeTransactionSearch']);

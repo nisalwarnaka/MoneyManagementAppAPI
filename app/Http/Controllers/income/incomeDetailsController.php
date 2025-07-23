@@ -5,6 +5,7 @@ namespace App\Http\Controllers\income;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IncomeTransactionCreateRequest;
 use App\Http\Requests\IncomeTransactionEditRequest;
+use App\Http\Requests\IncomeTransactionFinderRequest;
 use App\Http\Requests\IncomeTypeCreateRequest;
 use App\Http\Requests\IncomeTypeEditRequest;
 use App\Models\IncomeExpenseTransaction;
@@ -160,5 +161,43 @@ class incomeDetailsController extends Controller
 
     public function IncomeTypesView(): JsonResponse {
         return response()->json(IncomeType::all());
+    }
+
+    public function IncomeTransactionsView(Request $request): JsonResponse {
+
+        return response()->json(IncomeExpenseTransaction::whereNotNull('income_type')->get());
+    }
+
+    public function IncomeTransactionSearch(IncomeTransactionFinderRequest $request): JsonResponse {
+
+       $AllDataIncomeTransactionSearch = $request->validated();
+
+
+       if($AllDataIncomeTransactionSearch['IncomeTypeIdForSearch'] == null & $AllDataIncomeTransactionSearch['IncomeTransactionMonthForSearch'] == null){
+
+           return response()->json(IncomeExpenseTransaction::whereNotNull('income_type')->get());
+       }
+       else{
+           $SearchIncomeTransactionsData = IncomeExpenseTransaction::query();
+
+           if($AllDataIncomeTransactionSearch['IncomeTypeIdForSearch'] != null){
+
+               $SearchIncomeTransactionsData->where('income_type_id', $AllDataIncomeTransactionSearch['IncomeTypeIdForSearch']);
+           }
+
+           if($AllDataIncomeTransactionSearch['IncomeTransactionMonthForSearch'] != null){
+
+               $SearchIncomeTransactionsData->where('month', $AllDataIncomeTransactionSearch['IncomeTransactionMonthForSearch']);
+           }
+
+           $SelectedIncomeTransactionData = $SearchIncomeTransactionsData->get();
+
+           if($SelectedIncomeTransactionData -> isEmpty()){
+
+               return response()->json(['No Data Found']);
+           }
+
+           return response()->json($SearchIncomeTransactionsData->get());
+       }
     }
 }
