@@ -15,13 +15,13 @@ use Illuminate\Http\Request;
 
 class incomeDetailsController extends Controller
 {
-   public function IncomeTypeCreate(IncomeTypeCreateRequest $request):string
+   public function IncomeTypeCreate(IncomeTypeCreateRequest $request):JsonResponse
    {
        $AllDataIncomeTypeCreate = $request->validated();
 
        if(IncomeType::where('income_type', $AllDataIncomeTypeCreate['IncomeType'])->exists())
        {
-           return "Income Type Already Exist";
+           return response()->json(['Income Type Already Exist']);
 
        }
        else
@@ -32,11 +32,12 @@ class incomeDetailsController extends Controller
                'min_amount' => $AllDataIncomeTypeCreate['MinAmount'],
 
            ]);
-           return "Income Type Created Successfully";
+
+           return response()->json(['Income Type Created Successfully']);
        }
    }
 
-   public function IncomeTransactionCreate(IncomeTransactionCreateRequest $request):string
+   public function IncomeTransactionCreate(IncomeTransactionCreateRequest $request):JsonResponse
    {
        $AllDataIncomeTransactionCreate = $request->validated();
 
@@ -55,16 +56,18 @@ class incomeDetailsController extends Controller
                'month' => $AllDataIncomeTransactionCreate['IncomeTransactionMonth'],
 
            ]);
-           return "Income Transaction Created Successfully";
+
+           return response()->json(['Income Transaction Created Successfully']);
        }
        else
        {
-           return "Income Transaction limitation error";
+
+           return response()->json(['Income Transaction limitation error']);
        }
 
    }
 
-   public function IncomeTypeEdit(IncomeTypeEditRequest $request):string
+   public function IncomeTypeEdit(IncomeTypeEditRequest $request):JsonResponse
    {
 
        $AllDataIncomeTypeEdit = $request->validated();
@@ -85,10 +88,12 @@ class incomeDetailsController extends Controller
 
                ]);
 
-               return "Income Type Updated Successfully";
+
+               return response()->json(['Income Type Updated Successfully']);
            }
            else{
-               return "this Income Type Already Exist";
+
+               return response()->json(['this Income Type Already Exist']);
            }
 
        }
@@ -103,11 +108,13 @@ class incomeDetailsController extends Controller
                'min_amount' => $AllDataIncomeTypeEdit['IncomeMinAmountForEdit']
 
            ]);
-               return "Income Type Updated Successfully";
+
+               return response()->json(['Income Type Updated Successfully']);
 
            }
            else{
-               return "error ! something went wrong, please try again later";
+
+               return response()->json(['error ! something went wrong, please try again later']);
            }
 
        }
@@ -115,7 +122,7 @@ class incomeDetailsController extends Controller
 
    }
 
-   public function IncomeTransactionEdit(IncomeTransactionEditRequest $request):string
+   public function IncomeTransactionEdit(IncomeTransactionEditRequest $request):JsonResponse
    {
        $AllDataIncomeTransactionEdit = $request->validated();
 
@@ -132,30 +139,34 @@ class incomeDetailsController extends Controller
                'special_note' => $AllDataIncomeTransactionEdit['IncomeTransactionSpecial_noteForEdit'],
                'month' => $AllDataIncomeTransactionEdit['IncomeTransactionMonthForEdit'],
            ]);
-           return "Income Transaction Updated Successfully";
+
+           return response()->json(['Income Transaction Updated Successfully']);
        }
        else{
-           return "Income Transaction limitation error";
+
+           return response()->json(['Income Transaction limitation error']);
        }
 
 
 
    }
 
-   public function IncomeTypeDelete(Request $request): string
+   public function IncomeTypeDelete(Request $request): JsonResponse
    {
        $IncomeTypeIdForDelete = $request['IncomeTypeIdForDelete'];
        IncomeType::destroy($IncomeTypeIdForDelete);
 
-       return "Income Type Deleted Successfully";
+
+       return response()->json(['Income Type Deleted Successfully']);
    }
 
-   public function IncomeAndExpenseTransactionDelete(Request $request): string
+   public function IncomeAndExpenseTransactionDelete(Request $request): JsonResponse
    {
        $IncomeOrExpenseTransactionIdForDelete = $request['IncomeOrExpenseTransactionIdForDelete'];
        IncomeExpenseTransaction::destroy($IncomeOrExpenseTransactionIdForDelete);
 
-       return "Transaction Deleted Successfully";
+
+       return response()->json(['Transaction Deleted Successfully']);
    }
 
 

@@ -15,13 +15,14 @@ use Illuminate\Http\Request;
 
 class expenseDeatailsController extends Controller
 {
-    public function ExpenseTypeCreate(ExpenseTypeCreateRequest $request):string
+    public function ExpenseTypeCreate(ExpenseTypeCreateRequest $request):JsonResponse
     {
         $AllDataExpenseTypeCreate = $request->validated();
 
         if (ExpenseType:: where('expense_type' , $AllDataExpenseTypeCreate['ExpenseType'])->exists()) {
 
-            return "Expense Type Already Exist";
+
+            return response()->json(['Expense Type Already Exist']);
         }
         else{
 
@@ -31,12 +32,13 @@ class expenseDeatailsController extends Controller
                 'max_amount' => $AllDataExpenseTypeCreate['MaxAmount'],
                 'min_amount' => $AllDataExpenseTypeCreate['MinAmount']
             ]);
-            return "Expense Type Created Successfully";
+
+            return response()->json(['Expense Type Created Successfully']);
         }
 
     }
 
-    public function ExpenseTransactionCreate(ExpenseTransactionCreateRequest $request):string
+    public function ExpenseTransactionCreate(ExpenseTransactionCreateRequest $request):JsonResponse
     {
 
         $AllDataExpenseTransactionCreate = $request->validated();
@@ -57,15 +59,17 @@ class expenseDeatailsController extends Controller
                 'month' => $AllDataExpenseTransactionCreate['ExpenseTransactionMonth']
 
             ]);
-            return "Expense Transaction Created Successfully";
+
+            return response()->json(['Expense Transaction Created Successfully']);
         }
         else
         {
-            return "Expense Transaction Limitation Error";
+
+            return response()->json(['Expense Transaction Limitation Error']);
         }
     }
 
-    public function ExpenseTypeEdit(ExpenseTypeEditRequest $request):string
+    public function ExpenseTypeEdit(ExpenseTypeEditRequest $request):JsonResponse
     {
         $AllDataExpenseTypeEdit = $request->validated();
 
@@ -84,11 +88,13 @@ class expenseDeatailsController extends Controller
                     'min_amount' => $AllDataExpenseTypeEdit['ExpenseMinAmountForEdit']
 
                 ]);
-                return "Expense Type Updated Successfully";
+
+                return response()->json(['Expense Type Updated Successfully']);
             }
             else{
 
-                return "This Expense Type Already Exist";
+
+                return response()->json(['This Expense Type Already Exist']);
             }
 
         }
@@ -103,18 +109,20 @@ class expenseDeatailsController extends Controller
                 'min_amount' => $AllDataExpenseTypeEdit['ExpenseMinAmountForEdit']
 
             ]);
-            return "Expense Type Updated Successfully";
+
+                return response()->json(['Expense Type Updated Successfully']);
 
             }
             else{
 
-                return "error ! something went wrong, please try again later";
+
+                return response()->json(['error ! something went wrong, please try again later']);
             }
         }
 
     }
 
-    public function ExpenseTransactionEdit(ExpenseTransactionEditRequest $request):string
+    public function ExpenseTransactionEdit(ExpenseTransactionEditRequest $request):JsonResponse
     {
         $AllDataExpenseTransactionEdit = $request->validated();
 
@@ -131,19 +139,22 @@ class expenseDeatailsController extends Controller
                 'special_note' => $AllDataExpenseTransactionEdit['ExpenseTransactionSpecial_noteForEdit'],
                 'month' => $AllDataExpenseTransactionEdit['ExpenseTransactionMonthForEdit']
             ]);
-            return "Income Transaction Updated Successfully";
+
+            return response()->json(['Income Transaction Updated Successfully']);
         }
         else{
-            return "Income Transaction limitation error";
+
+            return response()->json(['Income Transaction limitation error']);
         }
     }
 
-    public function ExpenseTypeDelete(Request $request): string
+    public function ExpenseTypeDelete(Request $request): JsonResponse
     {
         $ExpenseTypeIdForDelete = $request['ExpenseTypeIdForDelete'];
         ExpenseType::destroy($ExpenseTypeIdForDelete);
 
-        return "Expense Type Deleted Successfully";
+
+        return response()->json(['Expense Type Deleted Successfully']);
     }
 
     public function ExpenseTypesView(): JsonResponse {
