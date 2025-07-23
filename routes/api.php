@@ -16,3 +16,10 @@ Route::post('/expense-transaction-edit', [expenseDeatailsController::class, 'Exp
 Route::post('/income-type-delete', [IncomeDetailsController::class, 'IncomeTypeDelete']);
 Route::post('/income-and-expense-transaction-delete', [IncomeDetailsController::class, 'IncomeAndExpenseTransactionDelete']);
 Route::post('/expense-type-delete', [expenseDeatailsController::class, 'ExpenseTypeDelete']);
+
+Route::get('/income-types-view', [IncomeDetailsController::class, 'IncomeTypesView']);
+Route::get('/expense-types-view', [expenseDeatailsController::class, 'ExpenseTypesView']);
+Route::get('/income-transactions-view', [IncomeDetailsController::class, 'IncomeTransactionsView']);
+Route::get('/expense-transactions-view', [expenseDeatailsController::class, 'ExpenseTransactionsView']);
+Route::post('/income-transactions-find', [IncomeDetailsController::class, 'IncomeTransactionSearch']);
+Route::post('/expense-transactions-find', [expenseDeatailsController::class, 'ExpenseTransactionSearch']);

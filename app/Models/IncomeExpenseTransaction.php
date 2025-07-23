@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static create(array $array)
  * @method where(string $string, mixed $AllDataIncomeTransactionEdit)
+ * @method static whereNotNull(string $string)
  */
 class IncomeExpenseTransaction extends Model
 {
