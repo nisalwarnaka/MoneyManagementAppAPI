@@ -5,6 +5,7 @@ namespace App\Http\Controllers\expense;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExpenseTransactionCreateRequest;
 use App\Http\Requests\ExpenseTransactionEditRequest;
+use App\Http\Requests\ExpenseTransactionsFinderRequest;
 use App\Http\Requests\ExpenseTypeCreateRequest;
 use App\Http\Requests\ExpenseTypeEditRequest;
 use App\Models\ExpenseType;
@@ -152,5 +153,38 @@ class expenseDeatailsController extends Controller
     public function ExpenseTransactionsView(Request $request): JsonResponse {
 
         return response()->json(IncomeExpenseTransaction::whereNotNull('expense_type')->get());
+    }
+
+    public function ExpenseTransactionSearch(ExpenseTransactionsFinderRequest $request): JsonResponse {
+
+        $AllDataExpenseTransactionSearch = $request->validated();
+
+
+        if($AllDataExpenseTransactionSearch['ExpenseTypeIdForSearch'] == null & $AllDataExpenseTransactionSearch['ExpenseTransactionMonthForSearch'] == null){
+
+            return response()->json(IncomeExpenseTransaction::whereNotNull('expense_type')->get());
+        }
+        else{
+            $SearchExpenseTransactionsData = IncomeExpenseTransaction::query();
+
+            if($AllDataExpenseTransactionSearch['ExpenseTypeIdForSearch'] != null){
+
+                $SearchExpenseTransactionsData->where('expense_type_id', $AllDataExpenseTransactionSearch['ExpenseTypeIdForSearch']);
+            }
+
+            if($AllDataExpenseTransactionSearch['ExpenseTransactionMonthForSearch'] != null){
+
+                $SearchExpenseTransactionsData->where('month', $AllDataExpenseTransactionSearch['ExpenseTransactionMonthForSearch']);
+            }
+
+            $SelectedExpenseTransactionData = $SearchExpenseTransactionsData->get();
+
+            if($SelectedExpenseTransactionData -> isEmpty()){
+
+                return response()->json(['No Data Found']);
+            }
+
+            return response()->json($SearchExpenseTransactionsData->get());
+        }
     }
 }

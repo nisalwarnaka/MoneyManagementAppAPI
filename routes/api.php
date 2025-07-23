@@ -21,4 +21,5 @@ Route::get('/income-types-view', [IncomeDetailsController::class, 'IncomeTypesVi
 Route::get('/expense-types-view', [expenseDeatailsController::class, 'ExpenseTypesView']);
 Route::get('/income-transactions-view', [IncomeDetailsController::class, 'IncomeTransactionsView']);
 Route::get('/expense-transactions-view', [expenseDeatailsController::class, 'ExpenseTransactionsView']);
-Route::post('/income-transactions-view', [IncomeDetailsController::class, 'IncomeTransactionSearch']);
+Route::post('/income-transactions-find', [IncomeDetailsController::class, 'IncomeTransactionSearch']);
+Route::post('/expense-transactions-find', [expenseDeatailsController::class, 'ExpenseTransactionSearch']);
