@@ -19,21 +19,21 @@ class incomeDetailsController extends Controller
    {
        $AllDataIncomeTypeCreate = $request->validated();
 
-       if(IncomeType::where('income_type', $AllDataIncomeTypeCreate['IncomeType'])->exists())
+       if(IncomeType::where('income_type', $AllDataIncomeTypeCreate['income_type'])->exists())
        {
-           return response()->json(['Income Type Already Exist']);
+           return response()->json(['message' => 'Income Type Already Exists'], 409);
 
        }
        else
        {
            IncomeType::create([
-               'income_type' => $AllDataIncomeTypeCreate['IncomeType'],
-               'max_amount' => $AllDataIncomeTypeCreate['MaxAmount'],
-               'min_amount' => $AllDataIncomeTypeCreate['MinAmount'],
+               'income_type' => $AllDataIncomeTypeCreate['income_type'],
+               'max_amount' => $AllDataIncomeTypeCreate['max_amount'],
+               'min_amount' => $AllDataIncomeTypeCreate['min_amount'],
 
            ]);
 
-           return response()->json(['Income Type Created Successfully']);
+           return response()->json(['message' => 'Income Type Created Successfully'],201);
        }
    }
 
