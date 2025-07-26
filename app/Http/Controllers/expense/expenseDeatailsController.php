@@ -22,7 +22,7 @@ class expenseDeatailsController extends Controller
         if (ExpenseType:: where('expense_type' , $AllDataExpenseTypeCreate['ExpenseType'])->exists()) {
 
 
-            return response()->json(['Expense Type Already Exist']);
+            return response()->json(['message' => 'Expense Type Already Exist'], 409);
         }
         else{
 
@@ -33,7 +33,7 @@ class expenseDeatailsController extends Controller
                 'min_amount' => $AllDataExpenseTypeCreate['MinAmount']
             ]);
 
-            return response()->json(['Expense Type Created Successfully']);
+            return response()->json(['message' => 'Expense Type Created Successfully'], 201);
         }
 
     }
@@ -158,7 +158,7 @@ class expenseDeatailsController extends Controller
     }
 
     public function ExpenseTypesView(): JsonResponse {
-        return response()->json(ExpenseType::all());
+        return response()->json(ExpenseType::all(),);
     }
 
     public function ExpenseTransactionsView(Request $request): JsonResponse {
