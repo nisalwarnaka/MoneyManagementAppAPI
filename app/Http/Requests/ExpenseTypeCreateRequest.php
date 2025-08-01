@@ -22,9 +22,9 @@ class ExpenseTypeCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ExpenseType'=>['required','string','max:255'],
-            'MaxAmount'=>['required','numeric','min:0'],
-            'MinAmount'=>['required','numeric','min:0'],
+            'expense_type'=>['required','string','max:255'],
+            'max_amount'=>['required','numeric','min:0'],
+            'min_amount'=>['required','numeric','min:0'],
         ];
     }
 }

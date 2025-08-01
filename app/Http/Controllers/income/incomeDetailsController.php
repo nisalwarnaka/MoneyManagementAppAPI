@@ -41,28 +41,28 @@ class incomeDetailsController extends Controller
    {
        $AllDataIncomeTransactionCreate = $request->validated();
 
-       $SelectedDataIncomeType = IncomeType::where('id', $AllDataIncomeTransactionCreate['IncomeTypeId']);
+       $SelectedDataIncomeType = IncomeType::where('id', $AllDataIncomeTransactionCreate['income_type_id']);
 
        $SelectedIncomeTypeMaxAmount = $SelectedDataIncomeType->get()[0]->max_amount;
        $SelectedIncomeTypeMinAmount = $SelectedDataIncomeType->get()[0]->min_amount;
 
-       if($SelectedIncomeTypeMaxAmount >= $AllDataIncomeTransactionCreate['IncomeTransactionAmount'] & $SelectedIncomeTypeMinAmount <= $AllDataIncomeTransactionCreate['IncomeTransactionAmount'])
+       if($SelectedIncomeTypeMaxAmount >= $AllDataIncomeTransactionCreate['transaction_amount'] & $SelectedIncomeTypeMinAmount <= $AllDataIncomeTransactionCreate['transaction_amount'])
        {
            IncomeExpenseTransaction::create([
-               'income_type' => $AllDataIncomeTransactionCreate['IncomeTransactionType'],
-               'income_type_id' => $AllDataIncomeTransactionCreate['IncomeTypeId'],
-               'transaction_amount' => $AllDataIncomeTransactionCreate['IncomeTransactionAmount'],
-               'special_note' => $AllDataIncomeTransactionCreate['IncomeSpecialNote'],
-               'month' => $AllDataIncomeTransactionCreate['IncomeTransactionMonth'],
+               'income_type' => $AllDataIncomeTransactionCreate['income_type'],
+               'income_type_id' => $AllDataIncomeTransactionCreate['income_type_id'],
+               'transaction_amount' => $AllDataIncomeTransactionCreate['transaction_amount'],
+               'special_note' => $AllDataIncomeTransactionCreate['special_note'],
+               'month' => $AllDataIncomeTransactionCreate['month'],
 
            ]);
 
-           return response()->json(['Income Transaction Created Successfully']);
+           return response()->json(['message' =>'Income Transaction Created Successfully'], 201);
        }
        else
        {
 
-           return response()->json(['Income Transaction limitation error']);
+           return response()->json(['message'=>'Income Transaction limitation error'], 409);
        }
 
    }

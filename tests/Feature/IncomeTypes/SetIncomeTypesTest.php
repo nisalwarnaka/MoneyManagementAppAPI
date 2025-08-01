@@ -16,13 +16,8 @@ class SetIncomeTypesTest extends TestCase
     public function test_can_set_income_types(): void
     {
         //Arrange
-        //$Data = IncomeType::factory()->make()->toArray();
+        $Data = IncomeType::factory()->make()->toArray();
 
-        $Data = [
-            'income_type'=> 'test1',
-            'max_amount'=>1000,
-            'min_amount'=>100,
-        ];
 
         //Act
         $response = $this->postJson('/api/income-type-create', $Data);
@@ -35,7 +30,7 @@ class SetIncomeTypesTest extends TestCase
             'max_amount' => $Data['max_amount'],
             'min_amount' => $Data['min_amount'],
         ]);
-    }
+}
 
     public function test_with_same_income_types(): void
     {

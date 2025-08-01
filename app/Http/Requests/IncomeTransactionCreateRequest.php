@@ -22,11 +22,11 @@ class IncomeTransactionCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'IncomeTransactionType' => ['required','string','max:255'],
-            'IncomeTypeId' => ['required','numeric'],
-            'IncomeTransactionAmount' => ['required','numeric'],
-            'IncomeSpecialNote' =>['nullable','string','max:255'],
-            'IncomeTransactionMonth' =>['required','string','max:255'],
+            'income_type' => ['required','string','max:255'],
+            'income_type_id' => ['required','numeric'],
+            'transaction_amount' => ['required','numeric'],
+            'special_note' =>['nullable','string','max:255'],
+            'month' =>['required','string','max:255'],
 
         ];
     }

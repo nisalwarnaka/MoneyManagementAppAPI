@@ -19,7 +19,7 @@ class expenseDeatailsController extends Controller
     {
         $AllDataExpenseTypeCreate = $request->validated();
 
-        if (ExpenseType:: where('expense_type' , $AllDataExpenseTypeCreate['ExpenseType'])->exists()) {
+        if (ExpenseType:: where('expense_type' , $AllDataExpenseTypeCreate['expense_type'])->exists()) {
 
 
             return response()->json(['message' => 'Expense Type Already Exist'], 409);
@@ -28,9 +28,9 @@ class expenseDeatailsController extends Controller
 
             ExpenseType::create([
 
-                'expense_type' => $AllDataExpenseTypeCreate['ExpenseType'],
-                'max_amount' => $AllDataExpenseTypeCreate['MaxAmount'],
-                'min_amount' => $AllDataExpenseTypeCreate['MinAmount']
+                'expense_type' => $AllDataExpenseTypeCreate['expense_type'],
+                'max_amount' => $AllDataExpenseTypeCreate['max_amount'],
+                'min_amount' => $AllDataExpenseTypeCreate['min_amount']
             ]);
 
             return response()->json(['message' => 'Expense Type Created Successfully'], 201);
@@ -158,7 +158,7 @@ class expenseDeatailsController extends Controller
     }
 
     public function ExpenseTypesView(): JsonResponse {
-        return response()->json(ExpenseType::all(),);
+        return response()->json(ExpenseType::all());
     }
 
     public function ExpenseTransactionsView(Request $request): JsonResponse {
